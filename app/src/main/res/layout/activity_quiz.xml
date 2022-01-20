@@ -156,6 +156,18 @@
         app:layout_constraintStart_toStartOf="@+id/option_3"
         app:layout_constraintTop_toBottomOf="@+id/option_3" />
 
+    <TextView
+        android:id="@+id/tv"
+        android:layout_width="60dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="100dp"
+        android:background="@drawable/option_unselected"
+        android:padding="15dp"
+        android:text=""
+        app:layout_constraintEnd_toEndOf="@+id/view5"
+        app:layout_constraintStart_toStartOf="@+id/view5"
+        app:layout_constraintTop_toBottomOf="@+id/option_4" />
+
     <Button
         android:id="@+id/nextBtn"
         android:layout_width="0dp"

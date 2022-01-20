@@ -13,6 +13,9 @@
         android:theme="@style/Theme.AppCompat.Light.NoActionBar"
         android:usesCleartextTraffic="true">
         <activity
+            android:name=".LandingActivity"
+            android:exported="true" />
+        <activity
             android:name=".EvaluationActivity"
             android:exported="true" />
         <activity

@@ -33,7 +33,7 @@ public class LoginActivity extends AppCompatActivity {
         dialog.setMessage("Logging in...");
 
         if(auth.getCurrentUser() != null) {
-            startActivity(new Intent(LoginActivity.this, MainActivity.class));
+            startActivity(new Intent(LoginActivity.this, LandingActivity.class));
             finish();
         }
 
@@ -52,7 +52,7 @@ public class LoginActivity extends AppCompatActivity {
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         dialog.dismiss();
                         if(task.isSuccessful()) {
-                            startActivity(new Intent(LoginActivity.this, MainActivity.class));
+                            startActivity(new Intent(LoginActivity.this, LandingActivity.class));
                             finish();
                         } else {
                             Toast.makeText(LoginActivity.this, task.getException().getLocalizedMessage(), Toast.LENGTH_SHORT).show();
