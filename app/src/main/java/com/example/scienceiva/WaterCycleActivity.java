@@ -78,15 +78,14 @@ public class WaterCycleActivity extends AppCompatActivity implements
             @Override
             public void onClick(View view) {
                     song.start();
-                    Handler handler=new Handler();
-                    handler.postDelayed(new Runnable() {
-                        @Override
-                        public void run() {
-                            song.pause();
-                        }
-                    }, 160 * 1000);
+//                    Handler handler=new Handler();
+//                    handler.postDelayed(new Runnable() {
+//                        @Override
+//                        public void run() {
+//                            song.pause();
+//                        }
+//                    }, 160 * 1000);
                 }
-
         });
 
 //        buttonReplay.setOnClickListener(new View.OnClickListener() {
