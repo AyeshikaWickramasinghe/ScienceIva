@@ -2,9 +2,13 @@ package com.example.scienceiva;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
+import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.net.Uri;
+import android.os.Handler;
 import android.view.MotionEvent;
+import android.view.View;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -12,6 +16,7 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentOnAttachListener;
 
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.ar.core.Anchor;
 import com.google.ar.core.Config;
 import com.google.ar.core.HitResult;
@@ -22,6 +27,7 @@ import com.google.ar.sceneform.ArSceneView;
 import com.google.ar.sceneform.Node;
 import com.google.ar.sceneform.SceneView;
 import com.google.ar.sceneform.Sceneform;
+import com.google.ar.sceneform.animation.ModelAnimator;
 import com.google.ar.sceneform.math.Vector3;
 import com.google.ar.sceneform.rendering.ModelRenderable;
 import com.google.ar.sceneform.rendering.Renderable;
@@ -38,9 +44,13 @@ public class WaterCycleActivity extends AppCompatActivity implements
         BaseArFragment.OnSessionConfigurationListener,
         ArFragment.OnViewCreatedListener {
 
+    //adding the audio
+    MediaPlayer song;
+
     private ArFragment arFragment;
     private Renderable model;
     private ViewRenderable viewRenderable;
+    private FloatingActionButton buttonPlay,buttonReplay,buttonNext;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -56,6 +66,43 @@ public class WaterCycleActivity extends AppCompatActivity implements
                         .commit();
             }
         }
+
+        //initialize audio
+        song = MediaPlayer.create(this,R.raw.the_water_cycle);
+
+        buttonPlay = (FloatingActionButton)findViewById(R.id.buttonPlay);
+        //buttonReplay = (FloatingActionButton)findViewById(R.id.buttonReplay);
+        buttonNext = (FloatingActionButton)findViewById(R.id.buttonNext);
+
+        buttonPlay.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                    song.start();
+                    Handler handler=new Handler();
+                    handler.postDelayed(new Runnable() {
+                        @Override
+                        public void run() {
+                            song.pause();
+                        }
+                    }, 160 * 1000);
+                }
+
+        });
+
+//        buttonReplay.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//
+//            }
+//        });
+
+        buttonNext.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(getApplicationContext(), MainActivity.class);
+                startActivity(intent);
+            }
+        });
 
         loadModels();
     }
@@ -88,7 +135,7 @@ public class WaterCycleActivity extends AppCompatActivity implements
     public void loadModels() {
         WeakReference<WaterCycleActivity> weakActivity = new WeakReference<>(this);
         ModelRenderable.builder()
-                .setSource(this, Uri.parse("https://storage.googleapis.com/ar-answers-in-search-models/static/Tiger/model.glb"))
+                .setSource(this, Uri.parse("models/Chow.glb"))
                 .setIsFilamentGltf(true)
                 .setAsyncLoadEnabled(true)
                 .build()
@@ -133,8 +180,7 @@ public class WaterCycleActivity extends AppCompatActivity implements
         // Create the transformable model and add it to the anchor.
         TransformableNode model = new TransformableNode(arFragment.getTransformationSystem());
         model.setParent(anchorNode);
-        model.setRenderable(this.model)
-                .animate(true).start();
+        model.setRenderable(this.model).animate(true).start();
         model.select();
 
         Node titleNode = new Node();
@@ -143,5 +189,11 @@ public class WaterCycleActivity extends AppCompatActivity implements
         titleNode.setLocalPosition(new Vector3(0.0f, 1.0f, 0.0f));
         titleNode.setRenderable(viewRenderable);
         titleNode.setEnabled(true);
+    }
+
+    @Override
+    protected void onPause(){
+        super.onPause();
+        song.release();
     }
 }
