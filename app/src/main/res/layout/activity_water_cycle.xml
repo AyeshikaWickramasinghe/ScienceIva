@@ -17,10 +17,10 @@
         android:layout_height="wrap_content"
         android:clickable="true"
         android:focusable="true"
-        android:layout_marginTop="30dp"
+        android:layout_marginBottom="50dp"
         app:layout_constraintEnd_toStartOf="@id/buttonNext"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/arFragment"
+        app:layout_constraintBottom_toBottomOf="@id/arFragment"
         app:backgroundTint="@color/colorPurple"
         app:srcCompat="@drawable/ic_baseline_play_arrow_24"
         tools:ignore="MissingConstraints" />
@@ -45,11 +45,11 @@
         android:layout_height="wrap_content"
         android:clickable="true"
         android:focusable="true"
-        android:layout_marginTop="30dp"
+        android:layout_marginBottom="50dp"
         app:backgroundTint="@color/colorPurple"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/buttonPlay"
-        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="@id/arFragment"
         app:srcCompat="@drawable/next"
         tools:ignore="MissingConstraints" />
 
